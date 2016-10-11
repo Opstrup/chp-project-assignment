@@ -1,0 +1,36 @@
+% !TeX spellcheck = en_GB
+\documentclass[12pt]{report}
+% Relevant for frontpage and headers
+\course{02249: CHP}
+\title{Project Assignment}
+\author{Salik Lennert Pedersen (s134416)\\Federico Bergamin(s162924)\\Anders H. Opstrup (s160148)}
+\rhead{s134416,s162924,s160148}
+\date{07 November 2016}
+
+% Document specific includes
+\usetikzlibrary{chains}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\def \CSP {Cubesat Space Protocol}
+\newcommand*\rot{\rotatebox{90}}
+
+\begin{document}
+\maketitle % comment this out to \ove the front page
+\newpage
+\pagenumbering{roman}
+\input{Sections/abstract}
+
+\newpage
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\input{Sections/introduction}
+
+%\newpage
+%\input{Sections/schedule}
+\newpage
+%\input{Sections/conclusion}
+
+\end{document}

@@ -1,0 +1,15 @@
+% !TeX spellcheck = en_GB
+\section{Introduction}
+\label{sec:intro}
+
+In 2010 Cubesat Space Protocol was created at Aalborg University. The protocol was created to use with the CubeSat satellite form in general and not only for Aalborg University. \CSP{} has support for mechanisms such as packet checksums build in, and amongst other supports encryption. To make the protocol as generic as possible, the protocol was created with support for the operating systems Linux and FreeRTOS (later Mac OS X and Windows). \CSP{} is designed with concurrency in mind, using the thread libraries of the relevant operating systems, and as of now no single threaded version of the protocol exists.
+
+A CubeSat is a small research satellite contained in a $10$cm $\times 10$cm $\times 10$cm box using mostly off the shelf electronic parts.
+
+At DTU eCos is used as operating system on satellites. eCos is a real time openSource operating system, mainly intended for embedded use. eCos is highly customizable and can thus be designed for at very low resource footprint, making its use on satellites among other things a viable solution.
+eCos is based on GNU tools and bases its nature around having a POSIX compatible API. One of the key features in this situation is its support for threads, which is needed for implementing \CSP{} which this project does.
+
+This report will firstly outline some needed background knowledge in section \ref{sec:theory}. Section \ref{sec:design} describes the outline of the design requirements.
+One of the original reasons for this project, was to have Error Correcting Codes for the satellite link, but the goal has moved towards documenting the current protocol used at DTU and comparing it to \CSP{}. This is done in section \ref{sec:protocols}. Implementation specific details can be found in section \ref{sec:implementation}, while details on testing the implementation comes in section \ref{sec:testing}. Section \ref{sec:ecc} describes the changing goal of the project in more detail along with ideas for ECC, and section \ref{sec:conclusion} concludes the project.
+
+This document requires previous knowledge to the protocols TCP and UDP and also the OSI reference model. Basic ECC understanding is needed to understand section \ref{sec:ecc}.
