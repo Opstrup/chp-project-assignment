@@ -1,0 +1,86 @@
+% package for bibliography
+\documentclass[paper=a4, fontsize=12pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{microtype}   
+% package for including graphics with figure-environment
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsmath, amsfonts}
+
+
+
+% colors for hyperlinks
+% colored borders (false) colored text (true)
+%\hypersetup{colorlinks=true,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black}
+
+% package for bibliography
+%\usepackage[authoryear,round]{natbib}
+% package for header
+\usepackage[automark]{scrpage2}
+\pagestyle{scrheadings}
+%\ihead[]{Name of students}
+%\ohead[]{\today}
+%\cfoot[]{\pagemark} 
+%\setheadsepline[122mm]{0.3mm}
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+
+
+
+
+\begin{document}
+	
+	%title of the page
+	\begin{titlepage}
+		\begin{center}
+			
+			\begin{figure}[!ht]
+				\centering
+				\begin{minipage}[b]{0.45\textwidth}
+					\includegraphics[width=0.75\textwidth]{imgs/DTUlogo.png}
+				\end{minipage}
+				\hfill
+				\begin{minipage}[b]{0.45\textwidth}
+					\includegraphics[width=\textwidth]{imgs/DTUCompute.png}
+				\end{minipage}
+			\end{figure}
+			\vspace{1.5cm}
+			\Huge Computationally Hard Problems \\ - Fall 2016 - \\ Assignment Project \\
+			
+			
+			\vspace{2cm}
+			
+			% if you are the only author, you might use the following
+			% \author{Name of student}	
+			
+			% Insert here your name and the student number 
+			\large {Salik Lennert Pedersen, s134416}  \\
+			\large {Anders Holmgaard Opstrup, s160148} \\
+			\large {Federico Bergamin, s162924} 
+			
+			\vspace{2cm}
+			
+			% name of the course and module
+			\large Course number: 02249, DTU Compute \\
+			Course: Computationally Hard Problems \\ 
+			\vfill
+			\large November 7, 2016.
+			
+			
+			
+		\end{center}
+	\end{titlepage}
+
+   \thispagestyle{empty}
+   \null\newpage
+   \thispagestyle{empty}
+	
+\end{document}
