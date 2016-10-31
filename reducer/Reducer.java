@@ -20,7 +20,7 @@ public class Reducer {
         while(enumKeys.hasMoreElements()){
             Character key = (Character)enumKeys.nextElement();
             String[] rSet = rSets.get(key);
-            String[] newrSet = new String[1000];
+            String[] newrSet = new String[250];
             for (int i = 0; i < rSet.length;i++ ){
                 if(s.contains(rSet[i])) newrSet[i] = rSet[i];
             }
