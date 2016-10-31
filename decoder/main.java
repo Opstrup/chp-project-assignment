@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class main {
@@ -17,9 +18,11 @@ public class main {
       String filePath = in.nextLine();
 
       System.out.println("Checking file\n");
-
       if (decoder.fileChecker(filePath)) {
           System.out.println("File is accepted\n");
+          Hashtable rSets = Reducer.removeUnused(Decoder.getS(),Decoder.getrSets());
+          Hashtable tStrings = Reducer.removeDuplicateTs(Decoder.gettStrings());
+          System.out.println(tStrings);
       } else {
           System.out.println("File is rejected\n");
       }
