@@ -1,5 +1,9 @@
+package algorithm;
+
+import algorithm.decoder.Decoder;
+import algorithm.reducer.Reducer;
+
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -11,7 +15,7 @@ public class main {
       String decodeMore = "Y";
 
       System.out.println("----------------------------------------");
-      System.out.println("~~~~~~~~ Welcome to the decoder ~~~~~~~~");
+      System.out.println("~~~~~~~~ Welcome to the algorithm.decoder ~~~~~~~~");
       System.out.println("----------------------------------------");
       System.out.println("\n");
       System.out.println("Enter a relativ path to the SWE file you want to decode\n");

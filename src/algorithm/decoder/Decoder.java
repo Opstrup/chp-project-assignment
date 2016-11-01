@@ -1,11 +1,11 @@
+package algorithm.decoder;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Scanner;
 
 public class Decoder {
 

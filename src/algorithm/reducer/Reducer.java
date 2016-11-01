@@ -1,7 +1,7 @@
+package algorithm.reducer;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.NavigableSet;
-import java.util.TreeSet;
 
 /**
  * Small class to reduce the problem
