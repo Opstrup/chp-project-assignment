@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="chp-project-assignment:jar">
+    <output-path>$PROJECT_DIR$/src/algorithm</output-path>
+    <root id="archive" name="chp-project-assignment.jar">
+      <element id="module-output" name="chp-project-assignment" />
+    </root>
+  </artifact>
+</component>
