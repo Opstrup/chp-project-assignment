@@ -27,7 +27,8 @@ public class main {
           String stringS = Decoder.getS();
           Hashtable rSets = Reducer.removeUnused(Decoder.getS(),Decoder.getrSets());
           Hashtable tStrings = Reducer.removeDuplicateTs(Decoder.gettStrings());
-          System.out.println(tStrings);
+
+          System.out.println(rSets);
       } else {
           System.out.println("File is rejected\n");
       }
