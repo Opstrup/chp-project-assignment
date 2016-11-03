@@ -1,5 +1,6 @@
 package algorithm.reducer;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -20,11 +21,11 @@ public class Reducer {
         while(enumKeys.hasMoreElements()){
             Character key = (Character)enumKeys.nextElement();
             String[] rSet = rSets.get(key);
-            String[] newrSet = new String[250];
+            ArrayList<String> newrSet = new ArrayList<>();//String[250];
             for (int i = 0; i < rSet.length;i++ ){
-                if(s.contains(rSet[i])) newrSet[i] = rSet[i];
+                if(s.contains(rSet[i])) newrSet.add(rSet[i]);
             }
-            reducedrSets.put(key, newrSet);
+            reducedrSets.put(key, newrSet.toArray(new String[0]));
         }
         return reducedrSets;
     }

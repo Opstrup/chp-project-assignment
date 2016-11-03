@@ -24,6 +24,7 @@ public class main {
       System.out.println("Checking file\n");
       if (decoder.fileChecker(filePath)) {
           System.out.println("File is accepted\n");
+          String stringS = Decoder.getS();
           Hashtable rSets = Reducer.removeUnused(Decoder.getS(),Decoder.getrSets());
           Hashtable tStrings = Reducer.removeDuplicateTs(Decoder.gettStrings());
           System.out.println(tStrings);
