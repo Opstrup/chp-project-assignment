@@ -9,8 +9,10 @@ public class Node {
     private final Node parent;
     private String value;
 
-    public Node(Node parent) {
-        this.parent = parent;
+    public Node(Node parent, String value, String subset) {
+          this.parent = parent;
+          this.value = value;
+          this.subset = subset;
     }
 
     public String getSubset() {
