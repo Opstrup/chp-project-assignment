@@ -151,5 +151,15 @@ We have to show and prove that our problem is in $\mathcal{NP}$. To do that we u
 \end{proof}
 
 \section{\textsc{SuperStringWithExpansion} is $\mathcal{NP}-$complete}
+\section{\textsc{Heuristic algorithm}}
+In order to construct a heuristic algorithm for the SuperStringWithExpansion problem we decided to implement a filter in order to have a possible smaller problem.
+The filter works in multiple steps.
+\begin{enumerate} 
+\item
+Filter the subsets $R_1\ldots R_m \subseteq \Sigma^*$ by checking if each element is a substring of the string $s$. If an element is not a substring of $s$, the element is removed as it is not an option. Otherwise it is kept in the set.
+\item
+The strings $t_1\ldots t_k \in (\Sigma \cup \Gamma)^*$ are filtered by removing duplicates and $t_i$ strings that are substrings of other $t_i$s for instance if $t_1=C$, $t_2=DAC$ and $t_3=DACD$ then both $t_1$ and $t_2$ will be removed as they are substrings of $t_3$.
+\end{enumerate}
+
 %%% End document
 \end{document}
