@@ -1,12 +1,15 @@
 package algorithm.reducer;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 /**
  * Small class to reduce the problem
  */
 public class Reducer {
+    private static HashSet<Character> ts = new HashSet<>();
 
     /**
      * Small method to remove unused strings from the rSets if they do not appear as substrings in string s
@@ -19,14 +22,20 @@ public class Reducer {
         Enumeration enumKeys = rSets.keys();
         while(enumKeys.hasMoreElements()){
             Character key = (Character)enumKeys.nextElement();
-            String[] rSet = rSets.get(key);
-            String[] newrSet = new String[250];
-            for (int i = 0; i < rSet.length;i++ ){
-                if(s.contains(rSet[i])) newrSet[i] = rSet[i];
+            if (ts.contains(key)){
+                String[] rSet = rSets.get(key);
+                ArrayList<String> newrSet = new ArrayList<>();
+                for (int i = 0; i < rSet.length;i++ ){
+                    if(s.contains(rSet[i])) newrSet.add(rSet[i]);
+                }
+                reducedrSets.put(key, newrSet.toArray(new String[0]));
             }
-            reducedrSets.put(key, newrSet);
         }
         return reducedrSets;
+    }
+
+    public static HashSet<Character> getTs() {
+        return ts;
     }
 
     /**
@@ -36,9 +45,11 @@ public class Reducer {
      */
     public static Hashtable removeDuplicateTs(Hashtable<Integer, String> tStrings){
         Hashtable<Integer, String> reducedtStrings = new Hashtable<>();
-
         for (int i = 0;i < tStrings.size();i++){
             String value = tStrings.get(i);
+            for (Character c: value.toCharArray()) {
+                if (Character.isUpperCase(c)) ts.add(c);
+            }
             boolean containsSubstring = false;
             for (String t :reducedtStrings.values()){
                 if (t.contains(value)){
