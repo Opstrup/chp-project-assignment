@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Hashtable;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,6 +13,7 @@ public class Decoder {
     private static Hashtable<Integer, String> fileContent;
     private static Hashtable<Character, String[]> rSets;
     private static String s;
+    private static String fileName;
     private static Hashtable<Integer, String> tStrings;
     private static Integer k;
 
@@ -22,7 +24,7 @@ public class Decoder {
         tStrings = new Hashtable<>();
         AtomicInteger lineNumber = new AtomicInteger(0);
         Boolean result = true;
-
+        fileName = FileSystems.getDefault().getPath(filePath).getFileName().toString();
         // Building up the Hashtable
         Files.lines(FileSystems.getDefault().getPath(filePath), StandardCharsets.UTF_8).forEach((line)-> {
                 fileContent.put(lineNumber.incrementAndGet(), line);
@@ -107,6 +109,10 @@ public class Decoder {
 
     public static Integer getK() {
         return k;
+    }
+
+    public static String getFileName() {
+        return fileName;
     }
 
     public static void runTests() {

@@ -1,11 +1,12 @@
 package algorithm;
 
 import algorithm.decoder.Decoder;
+import algorithm.printer.Printer;
 import algorithm.reducer.Reducer;
+import algorithm.solver.Solver;
 
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.*;
 
 public class main {
 
@@ -23,12 +24,18 @@ public class main {
 
       System.out.println("Checking file\n");
       if (decoder.fileChecker(filePath)) {
-          System.out.println("File is accepted\n");
-          String stringS = Decoder.getS();
-          Hashtable rSets = Reducer.removeUnused(Decoder.getS(),Decoder.getrSets());
-          Hashtable tStrings = Reducer.removeDuplicateTs(Decoder.gettStrings());
 
-          System.out.println(rSets);
+          System.out.println("File is accepted\n");
+          long startTime = System.currentTimeMillis();
+          Solver s = new Solver();
+          Hashtable<Character, String> solution = s.bruteForceSolve();
+          long endTime = System.currentTimeMillis()-startTime;
+          if (solution !=null){
+              System.out.println(endTime+"ms");
+              Printer.printResultToFile(solution);
+          }else{
+              Printer.printNoSolution();
+          }
       } else {
           System.out.println("File is rejected\n");
       }

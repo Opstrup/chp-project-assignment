@@ -4,22 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private String subset;
+    private Character subset;
     private final List<Node> children = new ArrayList<>();
     private final Node parent;
     private String value;
-
-    public Node(Node parent, String value, String subset) {
+    public Node(){
+    parent = null;
+    }
+    public Node(Node parent, String value, Character subset) {
           this.parent = parent;
           this.value = value;
           this.subset = subset;
     }
 
-    public String getSubset() {
+    public Node addChild(Node child){
+        children.add(child);
+        return child;
+    }
+    public boolean isLeaf(){
+        return children.size() == 0;
+    }
+    public Character getSubset() {
         return subset;
     }
 
-    public void setSubset(String subset) {
+    public void setSubset(Character subset) {
         this.subset = subset;
     }
 
