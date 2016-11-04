@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Decoder {
@@ -41,7 +44,7 @@ public class Decoder {
             k = numOfSubStrings;
         }
 
-        if (!onlyContrainLowerAndUppercaseLetters(fileContent.get(2))) {
+        if (!onlyContainLowerAndUppercaseLetters(fileContent.get(2))) {
           System.out.println("Line: 2 is wrong!");
           result = false;
         }else {
@@ -50,7 +53,7 @@ public class Decoder {
         }
 
         for(int i = 3; i < (3 + numOfSubStrings); i++){
-          if (!onlyContrainLowerAndUppercaseLetters(fileContent.get(i))) {
+          if (!onlyContainLowerAndUppercaseLetters(fileContent.get(i))) {
             System.out.println("Line: " + i + "is wrong!");
             result = false;
           }else{
@@ -79,22 +82,17 @@ public class Decoder {
       return line.matches("[0-9]+");
     }
 
-    private static Boolean onlyContrainLowerAndUppercaseLetters(String line) {
+    private static Boolean onlyContainLowerAndUppercaseLetters(String line) {
       return line.matches("[a-zA-Z]+");
     }
 
-    private static Boolean onlyContrainLowercaseLetters(String line) {
+    private static Boolean onlyContainLowercaseLetters(String line) {
       return line.matches("[a-z]+");
     }
 
     private static Boolean checkLine(String line) {
       return line.matches("^[A-Z]{1}[:]{1}([a-z,])+");
     }
-
-    public static Hashtable getFileContent(){
-            return fileContent;
-    }
-
     public static Hashtable<Character, String[]> getrSets() {
         return rSets;
     }
@@ -120,24 +118,24 @@ public class Decoder {
       System.out.println("\n");
 
       System.out.println("---------------- * Tests * ----------------");
-      System.out.println("Test of onlyContrainLowercaseLetters:");
+      System.out.println("Test of onlyContainLowercaseLetters:");
       System.out.println("Expected [true, true, false, false, false, false]:");
-      System.out.println(onlyContrainLowercaseLetters("abc"));                // True
-      System.out.println(onlyContrainLowercaseLetters("aaaabbbssdcxzs"));     // True
-      System.out.println(onlyContrainLowercaseLetters("abc!!,ba2"));          // False
-      System.out.println(onlyContrainLowercaseLetters("abc vs"));             // False
-      System.out.println(onlyContrainLowercaseLetters("aBc"));                // False
-      System.out.println(onlyContrainLowercaseLetters("ab!c"));               // False
+      System.out.println(onlyContainLowercaseLetters("abc"));                // True
+      System.out.println(onlyContainLowercaseLetters("aaaabbbssdcxzs"));     // True
+      System.out.println(onlyContainLowercaseLetters("abc!!,ba2"));          // False
+      System.out.println(onlyContainLowercaseLetters("abc vs"));             // False
+      System.out.println(onlyContainLowercaseLetters("aBc"));                // False
+      System.out.println(onlyContainLowercaseLetters("ab!c"));               // False
       System.out.println("\n");
 
-      System.out.println("Test of onlyContrainLowerAndUppercaseLetters:");
+      System.out.println("Test of onlyContainLowerAndUppercaseLetters:");
       System.out.println("Expected [true, true, false, false, false, false]:");
-      System.out.println(onlyContrainLowerAndUppercaseLetters("ABd"));        // True
-      System.out.println(onlyContrainLowerAndUppercaseLetters("dBAS"));       // True
-      System.out.println(onlyContrainLowerAndUppercaseLetters("abc!!,ba2"));  // False
-      System.out.println(onlyContrainLowerAndUppercaseLetters("ABs "));       // False
-      System.out.println(onlyContrainLowerAndUppercaseLetters("aBc:"));       // False
-      System.out.println(onlyContrainLowerAndUppercaseLetters("ab!c"));       // False
+      System.out.println(onlyContainLowerAndUppercaseLetters("ABd"));        // True
+      System.out.println(onlyContainLowerAndUppercaseLetters("dBAS"));       // True
+      System.out.println(onlyContainLowerAndUppercaseLetters("abc!!,ba2"));  // False
+      System.out.println(onlyContainLowerAndUppercaseLetters("ABs "));       // False
+      System.out.println(onlyContainLowerAndUppercaseLetters("aBc:"));       // False
+      System.out.println(onlyContainLowerAndUppercaseLetters("ab!c"));       // False
       System.out.println("\n");
 
       System.out.println("Test of checkLine:");

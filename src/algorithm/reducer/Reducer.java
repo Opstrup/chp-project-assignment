@@ -6,8 +6,8 @@ import java.util.*;
  * Small class to reduce the problem
  */
 public class Reducer {
-    private static HashSet<Character> ts = new HashSet<>();
-    private static Hashtable<Character, String> unUsed = new Hashtable<>();
+    private static final HashSet<Character> ts = new HashSet<>();
+    private static final Hashtable<Character, String> unUsed = new Hashtable<>();
 
     /**
      * Small method to remove unused strings from the rSets if they do not appear as substrings in string s
@@ -35,7 +35,6 @@ public class Reducer {
         }
         return reducedrSets;
     }
-
     public static HashSet<Character> getTs() {
         return ts;
     }
@@ -51,6 +50,7 @@ public class Reducer {
      */
     public static Collection<String> removeDuplicateTs(Hashtable<Integer, String> tStrings){
         Collection<String> reducedtStrings = new HashSet<>();
+
         for (int i = 0;i < tStrings.size();i++){
             String value = tStrings.get(i);
             for (Character c: value.toCharArray()) {

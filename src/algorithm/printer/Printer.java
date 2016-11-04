@@ -1,7 +1,6 @@
 package algorithm.printer;
 
 import algorithm.decoder.Decoder;
-import algorithm.reducer.Reducer;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -18,7 +17,8 @@ public class Printer {
     public static void printResultToFile(Hashtable<Character, String> solution){
         String testFile = Decoder.getFileName();
         String fileName = testFile.split("\\.")[0]+".SOL";
-        //Get the keys as a list to sort them alphabetically
+
+               //Get the keys as a list to sort them alphabetically
         ArrayList<Character> sortetKeys = Collections.list(solution.keys());
         //Sort the keys to get them in order in the file.
         Collections.sort(sortetKeys);
@@ -33,12 +33,12 @@ public class Printer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Done printing to file: "+file.toAbsolutePath().toString());
+        System.out.println("Done printing to file: "+fileName);
     }
     public static void printNoSolution(){
         String testFile = Decoder.getFileName();
         String fileName = testFile.split("\\.")[0]+".SOL";
-        List<String> lines = Arrays.asList("No Solution!");
+        List<String> lines = Collections.singletonList("No Solution!");
         Path file = Paths.get(fileName);
         try {
             Files.write(file, lines, Charset.forName("UTF-8"));

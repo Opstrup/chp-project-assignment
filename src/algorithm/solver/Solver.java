@@ -1,25 +1,18 @@
 package algorithm.solver;
 
-import algorithm.Node;
 import algorithm.decoder.Decoder;
 import algorithm.reducer.Reducer;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Solver {
     private boolean found = false;
     private Hashtable<Character,String> solution;
-    private Node tree;
+    private ConcurrentHashMap<Character,String> solutionCon;
+    private final Node tree;
     public Solver(){
         tree = new Node();
-    }
-
-    public Hashtable<Character, String> getSolution() {
-        return solution;
-    }
-
-    public Node getTree() {
-        return tree;
     }
 
     /**
@@ -29,7 +22,7 @@ public class Solver {
      * @param rSetsKeys Character[] with the keys for the array.
      * @param rSetsIndex int index of which key/array is currently being created.
      */
-    public void makeTreeRec(Node parent, Hashtable<Character, String[]> rSets, Character[] rSetsKeys, int rSetsIndex) {
+    private void makeTreeRec(Node parent, Hashtable<Character, String[]> rSets, Character[] rSetsKeys, int rSetsIndex) {
         Character key = rSetsKeys[rSetsIndex];
         String[] rSet = rSets.get(key);
         if (rSetsKeys.length-1 == rSetsIndex) {//
@@ -47,12 +40,14 @@ public class Solver {
                 Node child = new Node(parent, r, key);
                 if (parent !=null) parent.addChild(child);
             }
-            for (Node n: parent.getChildren()){
-                 makeTreeRec(n, rSets, rSetsKeys, rSetsIndex+1);
+            if (parent != null) {
+                for (Node n: parent.getChildren()){
+                     makeTreeRec(n, rSets, rSetsKeys, rSetsIndex+1);
+                }
             }
         }
     }
-    public void traverseTree(Node tree, String s, Collection<String> tStrings){
+    private void traverseTree(Node tree, String s, Collection<String> tStrings){
         if(tree.isLeaf()&& !found){
             Hashtable<Character, String> possibleSol = new Hashtable<>();
             while(tree.getParent()!=null){
@@ -65,9 +60,11 @@ public class Solver {
                 solution = possibleSol;
             }
         }else if (!found){
-            for(Node child:tree.getChildren()){
+            //Traverse tree mutithreaded
+            tree.getChildren().parallelStream().forEach(child->traverseTree(child,s,tStrings));
+            /*for(Node child:tree.getChildren()){
                 traverseTree(child,s, tStrings);
-            }
+            }*/
         }
     }
 
@@ -86,7 +83,7 @@ public class Solver {
 
     }
 
-    private boolean checkTStrings(String stringS, Collection<String> tStrings, Hashtable possibleSol) {
+    private static boolean checkTStrings(String stringS, Collection<String> tStrings, Hashtable possibleSol) {
         for (String t: tStrings) {
             String subString = "";
             for (char c: t.toCharArray()) {
@@ -102,5 +99,4 @@ public class Solver {
         }
         return true;
     }
-
 }

@@ -1,50 +1,43 @@
-package algorithm;
+package algorithm.solver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListSet;
 
-public class Node {
+class Node {
     private Character subset;
     private final List<Node> children = new ArrayList<>();
     private final Node parent;
     private String value;
-    public Node(){
+
+    Node(){
     parent = null;
     }
-    public Node(Node parent, String value, Character subset) {
+    Node(Node parent, String value, Character subset) {
           this.parent = parent;
           this.value = value;
           this.subset = subset;
     }
 
-    public Node addChild(Node child){
+    void addChild(Node child){
         children.add(child);
-        return child;
     }
-    public boolean isLeaf(){
+    boolean isLeaf(){
         return children.size() == 0;
     }
-    public Character getSubset() {
+    Character getSubset() {
         return subset;
     }
 
-    public void setSubset(Character subset) {
-        this.subset = subset;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
+    String getValue() {
         return this.value;
     }
 
-    public List<Node> getChildren() {
+    List<Node> getChildren() {
         return children;
     }
-
-    public Node getParent() {
+    Node getParent() {
         return parent;
     }
+
 }
