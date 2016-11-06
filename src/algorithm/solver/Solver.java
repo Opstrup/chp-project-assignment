@@ -3,13 +3,16 @@ package algorithm.solver;
 import algorithm.decoder.Decoder;
 import algorithm.reducer.Reducer;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Solver {
     private boolean found = false;
     private Hashtable<Character,String> solution;
     private ConcurrentHashMap<Character,String> solutionCon;
+    private List<Node> leafs = new ArrayList<>();
     private final Node tree;
     public Solver(){
         tree = new Node();
@@ -30,6 +33,7 @@ public class Solver {
             for (String r: rSet) {
                 Node child = new Node(parent, r, key);
                 if (parent !=null) parent.addChild(child);
+                leafs.add(child);
             }
         }else{
             // Take element of rSet
@@ -47,6 +51,13 @@ public class Solver {
             }
         }
     }
+
+    /**
+     * Recursive algorithm for checking the leafs.
+     * @param tree
+     * @param s
+     * @param tStrings
+     */
     private void traverseTree(Node tree, String s, Collection<String> tStrings){
         if(tree.isLeaf()&& !found){
             Hashtable<Character, String> possibleSol = new Hashtable<>();
@@ -68,14 +79,43 @@ public class Solver {
         }
     }
 
+    /**
+     * Iterative algorithm for checking the leafs.
+     * @param s
+     * @param tStrings
+     */
+    private void traverseTree(String s, Collection<String> tStrings){
+        leafs.parallelStream().forEach(n->{
+            if (!found){
+                Hashtable<Character, String> possibleSol = new Hashtable<>();
+                while(n.getParent()!=null){
+                    possibleSol.put(n.getSubset(),n.getValue());
+                    n = n.getParent();
+                }
+                boolean result = checkTStrings(s,tStrings,possibleSol);
+                if (result){
+                    found = true;
+                    solution = possibleSol;
+                }
+            }
+        });
+    }
+
     public Hashtable<Character,String> bruteForceSolve() {
 
         String stringS = Decoder.getS();
         Collection<String> tStrings = Reducer.removeDuplicateTs(Decoder.gettStrings());
         Hashtable<Character, String[]> rSets = Reducer.removeUnused(Decoder.getS(),Decoder.getrSets());
         ArrayList<Character> rSetKeys = new ArrayList<>(Collections.list(rSets.keys()));
+        long startTree = System.nanoTime();
         makeTreeRec(tree, rSets,rSetKeys.toArray(new Character[0]),0);
-        traverseTree(tree,stringS,tStrings);
+        long endTree = System.nanoTime()-startTree;
+        System.out.println("Made tree in "+endTree/1000000+"ms");
+        //Iterate Leafs
+        long startSearch = System.nanoTime();
+        traverseTree(stringS,tStrings);
+        long endSearch = System.nanoTime()-startSearch;
+        System.out.println("Done searching in "+endSearch/1000000+"ms");
         Hashtable<Character,String> unUsed = Reducer.getUnUsed();
         //Add the unused Chars to the solution.
         if(found) unUsed.forEach(solution::put);

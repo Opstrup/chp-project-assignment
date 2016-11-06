@@ -45,6 +45,7 @@ public class Printer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("No Solution found");
         System.out.println("Done printing to file: "+file.toAbsolutePath().toString());
     }
 }

@@ -152,14 +152,44 @@ We have to show and prove that our problem is in $\mathcal{NP}$. To do that we u
 
 \section{\textsc{SuperStringWithExpansion} is $\mathcal{NP}-$complete}
 \section{\textsc{Heuristic algorithm}}
-In order to construct a heuristic algorithm for the SuperStringWithExpansion problem we decided to implement a filter in order to have a possible smaller problem.
-The filter works in multiple steps.
+In order to construct a heuristic algorithm for the SuperStringWithExpansion problem we decided to implement an algorithm that works in several steps.
+\begin{enumerate}
+\item
+Decoding the file and storing the values in appropiate datastructures. This is done in $O(n)$ time complexity.
+\item
+Filtering the input thereby potentially making the problem smaller is done in multiple steps.
 \begin{enumerate} 
 \item
-Filter the subsets $R_1\ldots R_m \subseteq \Sigma^*$ by checking if each element is a substring of the string $s$. If an element is not a substring of $s$, the element is removed as it is not an option. Otherwise it is kept in the set.
+The strings $t_1\ldots t_k \in (\Sigma \cup \Gamma)^*$ are filtered by removing duplicates and $t$ strings that are substrings of other $t$ strings for instance if $t_1=C$, $t_2=DAC$ and $t_3=DACD$ then both $t_1$ and $t_2$ will be removed as they are substrings of $t_3$. This is done in $O(n^2)$ time complexity as we need to run through all $t$ strings once and place them in a HashSet which has to to be run through each time to check whether or not the HashSet contains the value or if the value is a substring of a previously added $t$ string.
 \item
-The strings $t_1\ldots t_k \in (\Sigma \cup \Gamma)^*$ are filtered by removing duplicates and $t_i$ strings that are substrings of other $t_i$s for instance if $t_1=C$, $t_2=DAC$ and $t_3=DACD$ then both $t_1$ and $t_2$ will be removed as they are substrings of $t_3$.
+ When filtering $t$ strings each $\gamma \in \mathcal{\Gamma}$ is stored in a HashSet in order to keep track of which subsets $R_1\ldots R_m \subseteq \Sigma^*$ should be used. This is done in $O(n)$ time complexity.
+\item
+We filter the subsets $R_1\ldots R_m \subseteq \Sigma^*$ by checking if the subset should be used. If the symbol $\gamma$ is found in the HashSet from the previous step then we move on to filter the actual set. This is done by checking if each element is a substring of the string $s$. If an element is not a substring of $s$, the element is removed as it is not an option. Otherwise it is kept in the set. This can be done in $O(mn^2)$ by running through all $r$ elements of of all $R_1\ldots R_m$ subsets and checking if the string $s$ contains the string as a substring.
 \end{enumerate}
-
+\item
+In order to be able to search through all the possible combinations we create a tree that follows this pattern:\par
+\includegraphics[width=1\textwidth]{Tree.pdf}
+This is done by recursively taking the $R_1\ldots R_m$ subsets and then adding each string $r$ in the subset as a child of all nodes in the the previous layer. For instance in the picture the elements of $\gamma =A$ is $\{a,b,c\}$, $\gamma =B$ is $\{a,b\}$ and $\gamma =C$ is $\{d,e,f\}$. With $m$ sets this gives a time complexity of $O(m^n)$
+\item
+Searching the tree is basically a pre-order Depth-First-Search done in a couple of steps.
+\begin{enumerate}
+\item
+Check if the node is a leaf and a solution is not found already. If the node is a leaf and a solution has not been found then traverse up the tree visiting all parents to get their $\gamma$ value and $r$ value and store them in a Hashtable as a possible solution.
+\includegraphics[width=1\textwidth]{TreePossibleSol.pdf}
+This represents a possible solution where $A=b, B=b$ and $C=d$
+\item
+Check the solution stored in the Hashtable against all the $t$ strings to see if the solution works for all $t$ strings.
+\item
+If the node is not a leaf and a solution has not been found then call traverseTree function recursively on all children of the node. This means exponential time complexity as each node potentially has $n$ children. Assuming that our alphabet $\Gamma$ is limited to $m$ this gives $O(m^n)$ time complexity.
+\item
+When/if a solution is found it is stored in a separate Hashtable.
+\end{enumerate}
+The process of searching the tree can be made iteratively. This can be done such that when creating the tree and adding leafs to the tree, then adding them to a List as well which can be iterated over. This still gives a worst case time complexity of $O(m^n)$ for searching all possible combinations.
+\item
+Add the unused $R_1\ldots R_m \subseteq \Sigma^*$ subsets to the solution. This can be done in $O(n)$ time complexity.
+\item
+Sort the solution by $\gamma$ and print to a .SOL file. Using the java built in Collections.sort which uses a modified mergesort this gives a time complexity of $O(n \log(n))$ 
+\end{enumerate}
+This gives a combined worst-case running time of $O(m^n)$
 %%% End document
 \end{document}

@@ -26,13 +26,11 @@ class main {
           if (Decoder.fileChecker(filePath)) {
 
               System.out.println("File is accepted\n");
-              //Start the clock
-              long startTime = System.currentTimeMillis();
               Solver s = new Solver();
               Hashtable<Character, String> solution = s.bruteForceSolve();
-              long endTime = System.currentTimeMillis()-startTime;
+
               if (solution !=null){
-                  System.out.println("Found solution in "+endTime+"ms");
+                  System.out.println("Found solution!");
                   Printer.printResultToFile(solution);
               }else{
                   Printer.printNoSolution();
