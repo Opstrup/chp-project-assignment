@@ -78,7 +78,7 @@ public class Solver {
         traverseTree(tree,stringS,tStrings);
         Hashtable<Character,String> unUsed = Reducer.getUnUsed();
         //Add the unused Chars to the solution.
-        unUsed.forEach(solution::put);
+        if(found) unUsed.forEach(solution::put);
         return solution;
 
     }
