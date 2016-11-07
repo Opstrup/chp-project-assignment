@@ -190,6 +190,17 @@ Add the unused $R_1\ldots R_m \subseteq \Sigma^*$ subsets to the solution. This 
 \item
 Sort the solution by $\gamma$ and print to a .SOL file. Using the java built in Collections.sort which uses a modified mergesort this gives a time complexity of $O(n \log(n))$ 
 \end{enumerate}
+
 This gives a combined worst-case running time of $O(m^n)$
+\section{\textsc{Appendix}}
+Instructions to run the algorithm:
+There are two options to run the program.
+\begin{enumerate}
+\item
+Run the *.jar file in the following way: java -jar chp-project-assignment.jar <testfile> where <testfile> could be test01.SWE if the file is in the same folder as the jar file.
+\item
+Run the *.jar file in the following way: java -jar chp-project-assignment.jar. Then the program will ask for a relative path to a <testfile> so test01.SWE could be entered.
+\end{enumerate}
+After completion the *.SOL file can be found in the same directory as the jar file. Furthermore the program will ask for another relative path in case you want to test with another file. Once you wish to exit the program enter N instead of a path to a file.
 %%% End document
 \end{document}

@@ -12,12 +12,19 @@ class main {
   public static void main(String[] args) throws IOException {
       Scanner in = new Scanner(System.in);
       System.out.println("----------------------------------------");
-      System.out.println("~~~~~~~~ Welcome to the algorithm.decoder ~~~~~~~~");
+      System.out.println("~~~~~~~~Welcome to the algorithm~~~~~~~~");
       System.out.println("----------------------------------------");
       System.out.println("\n");
-      System.out.println("Enter a relativ path to the SWE file you want to decode\n");
+      String filePath="";
+      if(args.length > 0){
+          filePath = args[0];
+      }else{
+          System.out.println("Enter a relativ path to the SWE file you want to decode\n");
+          filePath = in.nextLine();
+      }
+
+
       while(true){
-          String filePath = in.nextLine();
           if (filePath.equals("N") || filePath.equals("n")) {
               System.out.println("Okay ~goodbye");
               break;
@@ -40,7 +47,7 @@ class main {
           }
           System.out.println("Write a relativ path to a new SWE file to decode\n");
           System.out.println("Or write N if you wish to exit\n");
-
+          filePath = in.nextLine();
 
       }
   }

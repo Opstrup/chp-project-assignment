@@ -46,6 +46,6 @@ public class Printer {
             e.printStackTrace();
         }
         System.out.println("No Solution found");
-        System.out.println("Done printing to file: "+file.toAbsolutePath().toString());
+        System.out.println("Done printing to file: "+fileName);
     }
 }
