@@ -21,6 +21,7 @@ public class Reducer {
         while(enumKeys.hasMoreElements()){
             Character key = (Character)enumKeys.nextElement();
             String[] rSet = rSets.get(key);
+            Arrays.sort(rSet);
             if (ts.contains(key)) {
                 ArrayList<String> newrSet = new ArrayList<>();
                 for (int i = 0; i < rSet.length; i++) {

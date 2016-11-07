@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,6 +19,7 @@ public class Decoder {
     private static String s;
     private static String fileName;
     private static Hashtable<Integer, String> tStrings;
+    private static HashSet<Character> gammaChars;
     private static Integer k;
 
 
@@ -25,6 +27,7 @@ public class Decoder {
         fileContent = new Hashtable<>();
         rSets = new Hashtable<>();
         tStrings = new Hashtable<>();
+        gammaChars = new HashSet<>();
         AtomicInteger lineNumber = new AtomicInteger(0);
         Boolean result = true;
         fileName = FileSystems.getDefault().getPath(filePath).getFileName().toString();
@@ -44,28 +47,18 @@ public class Decoder {
             k = numOfSubStrings;
         }
 
-        if (!onlyContainLowerAndUppercaseLetters(fileContent.get(2))) {
+        if (!onlyContainLowercaseLetters(fileContent.get(2))) {
           System.out.println("Line: 2 is wrong!");
           result = false;
         }else {
             //Get the string s
             s = fileContent.get(2);
         }
-
-        for(int i = 3; i < (3 + numOfSubStrings); i++){
-          if (!onlyContainLowerAndUppercaseLetters(fileContent.get(i))) {
-            System.out.println("Line: " + i + "is wrong!");
-            result = false;
-          }else{
-              String line = fileContent.get(i);
-              tStrings.put(i-3,line);
-          }
-        }
-
+        //Read the r sets
         for(int i = numOfSubStrings + 3; i <= fileContent.size(); i++){
             if (!checkLine(fileContent.get(i))) {
-              System.out.println("Line: " + i + "is wrong!");
-              result = false;
+                System.out.println("Line: " + i + "is wrong!");
+                result = false;
             }else {
                 //Create the rSets
                 String line = fileContent.get(i);
@@ -74,6 +67,23 @@ public class Decoder {
                 String [] rSet = parts[1].split(",");
                 rSets.put(rName,rSet);
             }
+        }
+        //Add t strings
+        for(int i = 3; i < (3 + numOfSubStrings); i++){
+            String t = fileContent.get(i);
+          if (!onlyContainLowerAndUppercaseLetters(t) || t.length() > s.length()) {
+            System.out.println("Line: " + i + " is wrong!");
+            result = false;
+          }else{
+              String line = fileContent.get(i);
+              for (char c: line.toCharArray()) {
+                  if(Character.isUpperCase(c) && !rSets.keySet().contains(c)){
+                      System.out.println("Line: " + i + " is wrong!");
+                      result = false;
+                  }
+              }
+              tStrings.put(i-3,line);
+          }
         }
         return result;
     }
